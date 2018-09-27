@@ -1,0 +1,763 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{poi\_id}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} \PYZpc{}load poi\PYZus{}id.py}
+         \PY{c+c1}{\PYZsh{}!/usr/bin/python}
+         
+         \PY{k+kn}{import} \PY{n+nn}{sys}
+         \PY{k+kn}{import} \PY{n+nn}{pickle}
+         \PY{n}{sys}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../tools/}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{k+kn}{from} \PY{n+nn}{feature\PYZus{}format} \PY{k+kn}{import} \PY{n}{featureFormat}\PY{p}{,} \PY{n}{targetFeatureSplit}
+         \PY{k+kn}{from} \PY{n+nn}{tester} \PY{k+kn}{import} \PY{n}{dump\PYZus{}classifier\PYZus{}and\PYZus{}data}
+         
+         \PY{c+c1}{\PYZsh{}from sklearn.metrics import accuracy\PYZus{}score}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.metrics} \PY{k+kn}{import} \PY{o}{*}
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Task 1: Select what features you\PYZsq{}ll use.}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} features\PYZus{}list is a list of strings, each of which is a feature name.}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} The first feature must be \PYZdq{}poi\PYZdq{}.}
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{features\PYZus{}list = [\PYZsq{}poi\PYZsq{},\PYZsq{}salary\PYZsq{}] \PYZsh{} You will need to use more features}
+         
+         \PY{l+s+sd}{fin\PYZus{}features = [\PYZsq{}salary\PYZsq{}, \PYZsq{}deferral\PYZus{}payments\PYZsq{}, \PYZsq{}total\PYZus{}payments\PYZsq{}, \PYZsq{}loan\PYZus{}advances\PYZsq{}, }
+         \PY{l+s+sd}{                \PYZsq{}bonus\PYZsq{}, \PYZsq{}restricted\PYZus{}stock\PYZus{}deferred\PYZsq{}, \PYZsq{}deferred\PYZus{}income\PYZsq{}, }
+         \PY{l+s+sd}{                \PYZsq{}total\PYZus{}stock\PYZus{}value\PYZsq{}, \PYZsq{}expenses\PYZsq{}, \PYZsq{}exercised\PYZus{}stock\PYZus{}options\PYZsq{}, }
+         \PY{l+s+sd}{                \PYZsq{}other\PYZsq{}, \PYZsq{}long\PYZus{}term\PYZus{}incentive\PYZsq{}, \PYZsq{}restricted\PYZus{}stock\PYZsq{}, \PYZsq{}director\PYZus{}fees\PYZsq{}]}
+         
+         \PY{l+s+sd}{email\PYZus{}features = [\PYZsq{}to\PYZus{}messages\PYZsq{}, \PYZsq{}email\PYZus{}address\PYZsq{}, \PYZsq{}from\PYZus{}poi\PYZus{}to\PYZus{}this\PYZus{}person\PYZsq{}, }
+         \PY{l+s+sd}{                  \PYZsq{}from\PYZus{}messages\PYZsq{}, \PYZsq{}from\PYZus{}this\PYZus{}person\PYZus{}to\PYZus{}poi\PYZsq{}, \PYZsq{}shared\PYZus{}receipt\PYZus{}with\PYZus{}poi\PYZsq{}] }
+         
+         \PY{l+s+sd}{(as unidades aqui são geralmente em número de emails; a exceção notável aqui }
+         \PY{l+s+sd}{ é o atributo ‘email\PYZus{}address’, que é uma string)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         \PY{c+c1}{\PYZsh{} todos os atributos agrupados}
+         \PY{n}{all\PYZus{}features\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deferral\PYZus{}payments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}payments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}advances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bonus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{restricted\PYZus{}stock\PYZus{}deferred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deferred\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}stock\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expenses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exercised\PYZus{}stock\PYZus{}options}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{long\PYZus{}term\PYZus{}incentive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{restricted\PYZus{}stock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director\PYZus{}fees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{to\PYZus{}messages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{email\PYZus{}address}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{from\PYZus{}poi\PYZus{}to\PYZus{}this\PYZus{}person}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{from\PYZus{}messages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{from\PYZus{}this\PYZus{}person\PYZus{}to\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{shared\PYZus{}receipt\PYZus{}with\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+         
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} features a serem usadas incialmente}
+         \PY{n}{features\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{salary}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deferral\PYZus{}payments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}payments}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loan\PYZus{}advances}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{bonus}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{restricted\PYZus{}stock\PYZus{}deferred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{deferred\PYZus{}income}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{total\PYZus{}stock\PYZus{}value}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{expenses}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{exercised\PYZus{}stock\PYZus{}options}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{other}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{long\PYZus{}term\PYZus{}incentive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{restricted\PYZus{}stock}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{director\PYZus{}fees}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{from\PYZus{}poi\PYZus{}to\PYZus{}this\PYZus{}person}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{from\PYZus{}this\PYZus{}person\PYZus{}to\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Load the dictionary containing the dataset}
+         \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{final\PYZus{}project\PYZus{}dataset.pkl}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{r}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{k}{as} \PY{n}{data\PYZus{}file}\PY{p}{:}
+             \PY{n}{data\PYZus{}dict} \PY{o}{=} \PY{n}{pickle}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{data\PYZus{}file}\PY{p}{)}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantidade de registros:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{)}
+         
+         \PY{n}{poi\PYZus{}q} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{users} \PY{o+ow}{in} \PY{n}{data\PYZus{}dict}\PY{p}{:}
+             \PY{k}{if} \PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{n+nb+bp}{True}\PY{p}{:}
+                 \PY{n}{poi\PYZus{}q} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantidade de POIs:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{poi\PYZus{}q}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantidade de Não\PYZhy{}POI:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{n}{poi\PYZus{}q}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantidade total de atributos:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{data\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} identificação de NaN}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{identificação de NaN...}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{NaNfeatures} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{all\PYZus{}features\PYZus{}list}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{user} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{y}\PY{p}{,} \PY{n}{feature} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{all\PYZus{}features\PYZus{}list}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{user}\PY{p}{[}\PY{n}{feature}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NaN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{NaNfeatures}\PY{p}{[}\PY{n}{y}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Atributo}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantidade}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Percentual do Total}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{feature} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{all\PYZus{}features\PYZus{}list}\PY{p}{)}\PY{p}{:}
+             \PY{k}{print} \PY{n}{feature}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{}\PYZhy{} }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{NaNfeatures}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ \PYZhy{}\PYZhy{} }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n+nb}{float}\PY{p}{(}
+                 \PY{n}{NaNfeatures}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{100}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}    
+         
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Task 2: Remove outliers}
+         \PY{n}{before\PYZus{}outliers} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{)}
+         \PY{n}{data\PYZus{}dict}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{TOTAL}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} identificado durante o curso}
+         \PY{n}{data\PYZus{}dict}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{THE TRAVEL AGENCY IN THE PARK}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} sugerido pelo avaliador na 1a submissão}
+         \PY{n}{data\PYZus{}dict}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LOCKHART EUGENE E}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} \PY{c+c1}{\PYZsh{} sugerido pelo avaliador na 1a submissão}
+         
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantidade de outliers:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{before\PYZus{}outliers}\PY{o}{\PYZhy{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Quantidade de registros após remoção de outliers:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Task 3: Create new feature(s)}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Store to my\PYZus{}dataset for easy export below.}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{Novos atributos, baseados nas mensagens:}
+         \PY{l+s+sd}{     1. percentual de mensagens do POI para esta pessoa em comparação ao }
+         \PY{l+s+sd}{     total de mensagens \PYZdq{}to\PYZdq{}}
+         \PY{l+s+sd}{           perc\PYZus{}from\PYZus{}poi = from\PYZus{}poi\PYZus{}to\PYZus{}this\PYZus{}person / to\PYZus{}messages}
+         
+         \PY{l+s+sd}{     2. percentual de mensagens desta pessoa para um POI em comparação ao }
+         \PY{l+s+sd}{     total de mensagens \PYZdq{}from\PYZdq{}}
+         \PY{l+s+sd}{           perc\PYZus{}to\PYZus{}poi = from\PYZus{}this\PYZus{}person\PYZus{}to\PYZus{}poi / from\PYZus{}messages}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         \PY{k}{for} \PY{n}{users} \PY{o+ow}{in} \PY{n}{data\PYZus{}dict}\PY{p}{:}
+         
+             \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NaN}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{from\PYZus{}poi\PYZus{}to\PYZus{}this\PYZus{}person}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+                              \PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{to\PYZus{}messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc\PYZus{}from\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{from\PYZus{}poi\PYZus{}to\PYZus{}this\PYZus{}person}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} 
+                 \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{to\PYZus{}messages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc\PYZus{}from\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+         
+             \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{NaN}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{not} \PY{o+ow}{in} \PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{from\PYZus{}this\PYZus{}person\PYZus{}to\PYZus{}poi}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+                              \PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{from\PYZus{}messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc\PYZus{}to\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{from\PYZus{}this\PYZus{}person\PYZus{}to\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} 
+                 \PY{o}{/} \PY{n+nb}{float}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{from\PYZus{}messages}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+                 
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{users}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc\PYZus{}to\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} 
+         
+                 
+                 
+         \PY{c+c1}{\PYZsh{} Novos atributos adicionados `a lista}
+         \PY{n}{features\PYZus{}list} \PY{o}{=} \PY{n}{features\PYZus{}list} \PY{o}{+} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc\PYZus{}from\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{perc\PYZus{}to\PYZus{}poi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Quantidade total de atributos com novos atributos:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+         \PY{n+nb}{len}\PY{p}{(}\PY{n}{data\PYZus{}dict}\PY{p}{[}\PY{n}{data\PYZus{}dict}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{n}{my\PYZus{}dataset} \PY{o}{=} \PY{n}{data\PYZus{}dict}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Extract features and labels from dataset for local testing}
+         \PY{n}{data} \PY{o}{=} \PY{n}{featureFormat}\PY{p}{(}\PY{n}{my\PYZus{}dataset}\PY{p}{,} \PY{n}{features\PYZus{}list}\PY{p}{,} \PY{n}{sort\PYZus{}keys} \PY{o}{=} \PY{n+nb+bp}{True}\PY{p}{)}
+         \PY{n}{labels}\PY{p}{,} \PY{n}{features} \PY{o}{=} \PY{n}{targetFeatureSplit}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Quantiade de atributos para análise:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{features}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Task 4: Try a varity of classifiers}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Please name your classifier clf for easy export below.}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Note that if you want to do PCA or other multi\PYZhy{}stage operations,}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} you\PYZsq{}ll need to use Pipelines. For more info:}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} http://scikit\PYZhy{}learn.org/stable/modules/pipeline.html}
+         
+         \PY{c+c1}{\PYZsh{} Provided to give you a starting point. Try a variety of classifiers.}
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{from sklearn.naive\PYZus{}bayes import GaussianNB}
+         \PY{l+s+sd}{clf = GaussianNB()}
+         \PY{l+s+sd}{clf.fit(features, labels)}
+         \PY{l+s+sd}{pred = clf.predict(features)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels)}
+         \PY{l+s+sd}{print \PYZdq{}GaussianNB Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{from sklearn.svm import LinearSVC}
+         \PY{l+s+sd}{clf = LinearSVC()}
+         \PY{l+s+sd}{clf.fit(features, labels)}
+         \PY{l+s+sd}{pred = clf.predict(features)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels)}
+         \PY{l+s+sd}{print \PYZdq{}\PYZbs{}nLinearSVC Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} Não funciona: processo com tempo extremamente elevado}
+         \PY{l+s+sd}{from sklearn.svm import SVC}
+         \PY{l+s+sd}{clf = SVC(kernel=\PYZdq{}linear\PYZdq{})}
+         \PY{l+s+sd}{clf.fit(features, labels)}
+         \PY{l+s+sd}{pred = clf.predict(features)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels)}
+         \PY{l+s+sd}{print \PYZdq{}SVM Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{from sklearn.linear\PYZus{}model import LogisticRegression}
+         \PY{l+s+sd}{clf = LogisticRegression()}
+         \PY{l+s+sd}{clf.fit(features, labels)}
+         \PY{l+s+sd}{pred = clf.predict(features)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels)}
+         \PY{l+s+sd}{print \PYZdq{}LogisticRegression Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{import numpy as np}
+         \PY{l+s+sd}{from sklearn.model\PYZus{}selection import GridSearchCV}
+         \PY{l+s+sd}{from sklearn.tree import DecisionTreeClassifier}
+         \PY{l+s+sd}{param\PYZus{}grid = \PYZob{}\PYZsq{}criterion\PYZsq{}: (\PYZsq{}gini\PYZsq{}, \PYZsq{}entropy\PYZsq{}),}
+         \PY{l+s+sd}{\PYZsq{}splitter\PYZsq{}: (\PYZsq{}best\PYZsq{}, \PYZsq{}random\PYZsq{}),\PYZsq{}min\PYZus{}samples\PYZus{}split\PYZsq{}: np.arange(2, 10)\PYZcb{}}
+         \PY{l+s+sd}{clf = GridSearchCV(DecisionTreeClassifier(), param\PYZus{}grid)}
+         \PY{l+s+sd}{clf.fit(features, labels)}
+         \PY{l+s+sd}{pred = clf.predict(features)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels)}
+         \PY{l+s+sd}{print \PYZdq{}\PYZbs{}nDecisionTreeClassifier Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{\PYZsh{} AdaBoost}
+         \PY{l+s+sd}{from sklearn.ensemble import AdaBoostClassifier}
+         \PY{l+s+sd}{from sklearn.model\PYZus{}selection import cross\PYZus{}val\PYZus{}score}
+         \PY{l+s+sd}{clf = AdaBoostClassifier()}
+         \PY{l+s+sd}{clf = clf.fit(features, labels)}
+         \PY{l+s+sd}{pred = clf.predict(features)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels)}
+         \PY{l+s+sd}{print \PYZdq{}\PYZbs{}nAdaBoost Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Task 5: Tune your classifier to achieve better than .3 precision and recall }
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} using our testing script. Check the tester.py script in the final project}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} folder for details on the evaluation method, especially the test\PYZus{}classifier}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} function. Because of the small size of the dataset, the script uses}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} stratified shuffle split cross validation. For more info: }
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} http://scikit\PYZhy{}learn.org/stable/modules/generated/}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}sklearn.cross\PYZus{}validation.StratifiedShuffleSplit.html}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} Identificar a quantidade ótima de atributos}
+         \PY{c+c1}{\PYZsh{} Retirado de:}
+         \PY{c+c1}{\PYZsh{} http://scikit\PYZhy{}learn.org/stable/auto\PYZus{}examples/feature\PYZus{}selection/}
+         \PY{c+c1}{\PYZsh{} plot\PYZus{}rfe\PYZus{}with\PYZus{}cross\PYZus{}validation.html\PYZsh{}sphx\PYZhy{}glr\PYZhy{}auto\PYZhy{}examples\PYZhy{}feature\PYZhy{}selection\PYZhy{}plot\PYZhy{}rfe\PYZhy{}with\PYZhy{}cross\PYZhy{}validation\PYZhy{}py}
+         \PY{c+c1}{\PYZsh{} Adaptado para AdaBoost}
+         \PY{k+kn}{import} \PY{n+nn}{matplotlib.pyplot} \PY{k+kn}{as} \PY{n+nn}{plt}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{AdaBoostClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{StratifiedKFold}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.feature\PYZus{}selection} \PY{k+kn}{import} \PY{n}{RFECV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.datasets} \PY{k+kn}{import} \PY{n}{make\PYZus{}classification}
+         \PY{c+c1}{\PYZsh{} Create the clf object and compute a cross\PYZhy{}validated score.}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} The \PYZdq{}accuracy\PYZdq{} scoring is proportional to the number of correct}
+         \PY{c+c1}{\PYZsh{} classifications}
+         \PY{n}{rfecv} \PY{o}{=} \PY{n}{RFECV}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{clf}\PY{p}{,} \PY{n}{step}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{n}{StratifiedKFold}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,}
+                       \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{rfecv}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+         \PY{k}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Número ótimo de atributos : }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{rfecv}\PY{o}{.}\PY{n}{n\PYZus{}features\PYZus{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Plot number of features VS. cross\PYZhy{}validation scores}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Numero de atributos selecionados}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Cross validation score (num. correto de classif.)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{rfecv}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}\PY{p}{)} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{rfecv}\PY{o}{.}\PY{n}{grid\PYZus{}scores\PYZus{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}\PY{p}{;}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} Com o KBest é possível selecionar, \PYZdq{}transformar\PYZdq{} e identificar a }
+         \PY{c+c1}{\PYZsh{} importância de cada um dos atributos}
+         \PY{c+c1}{\PYZsh{} Primeiro rodou com k=\PYZdq{}all\PYZdq{} para identificação de todos atributos úteis. Total = 18.}
+         \PY{c+c1}{\PYZsh{} Depois foi configurado em k9 (50\PYZpc{}) e k=4 (25\PYZpc{}).}
+         \PY{c+c1}{\PYZsh{} k=4 se mostrou com os melhores resultados.}
+         \PY{c+c1}{\PYZsh{} O processo RFECV, rodado antes, também indicou 4 como número ótimo de atributos.}
+         \PY{c+c1}{\PYZsh{} parâmetro k passou a ler o rfecv.n\PYZus{}features\PYZus{}}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.feature\PYZus{}selection} \PY{k+kn}{import} \PY{n}{SelectKBest}
+         \PY{k+kn}{from} \PY{n+nn}{operator} \PY{k+kn}{import} \PY{n}{itemgetter}
+         \PY{n}{selector} \PY{o}{=} \PY{n}{SelectKBest}\PY{p}{(}\PY{n}{k}\PY{o}{=}\PY{n}{rfecv}\PY{o}{.}\PY{n}{n\PYZus{}features\PYZus{}}\PY{p}{)}
+         \PY{n}{selector}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+         \PY{n}{features\PYZus{}new} \PY{o}{=} \PY{n}{selector}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{features}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Composição dos atributos após KBest:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{features\PYZus{}new}\PY{o}{.}\PY{n}{shape}
+         \PY{n}{features\PYZus{}list\PYZus{}kb} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{selector}\PY{o}{.}\PY{n}{get\PYZus{}support}\PY{p}{(}\PY{n}{indices}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)}\PY{p}{:}
+         \PY{c+c1}{\PYZsh{}    print features\PYZus{}list[i+1], round(selector.scores\PYZus{}[i],2)}
+             \PY{n}{features\PYZus{}list\PYZus{}kb}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{features\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{selector}\PY{o}{.}\PY{n}{scores\PYZus{}}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print selector.get\PYZus{}support(indices=True)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Atributos em ordem de importância:}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{features\PYZus{}list\PYZus{}kb} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{features\PYZus{}list\PYZus{}kb}\PY{p}{,} \PY{n}{key}\PY{o}{=}\PY{n}{itemgetter}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,} \PY{n}{reverse}\PY{o}{=}\PY{n+nb+bp}{True}\PY{p}{)} 
+         \PY{k}{for} \PY{n}{sublst} \PY{o+ow}{in} \PY{n}{features\PYZus{}list\PYZus{}kb}\PY{p}{:}
+             \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{sublst}\PY{p}{:}
+                 \PY{k}{print} \PY{n}{item}\PY{p}{,}
+             \PY{k}{print}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}
+             
+             
+         
+         \PY{c+c1}{\PYZsh{} Example starting point. Try investigating other evaluation techniques!}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.cross\PYZus{}validation} \PY{k+kn}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+         \PY{n}{features\PYZus{}train}\PY{p}{,} \PY{n}{features\PYZus{}test}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}test} \PY{o}{=} \PYZbs{}
+             \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{features\PYZus{}new}\PY{p}{,} \PY{n}{labels}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} Normalização dos dados, visto que há atributos com valores em escalas diversas}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.preprocessing} \PY{k+kn}{import} \PY{n}{MinMaxScaler}
+         \PY{n}{scaler} \PY{o}{=} \PY{n}{MinMaxScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{scaler}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{)}
+         \PY{n}{features\PYZus{}train\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{)}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} transformando os dados de teste}
+         \PY{c+c1}{\PYZsh{}print \PYZdq{}transformando os dados de teste...\PYZdq{}}
+         \PY{n}{features\PYZus{}test\PYZus{}scaled} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{features\PYZus{}test}\PY{p}{)}
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} Classificadores}
+         \PY{c+c1}{\PYZsh{} Foram experimentados e analisados manualmente}
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{l+s+sd}{from sklearn.naive\PYZus{}bayes import GaussianNB}
+         \PY{l+s+sd}{clf = GaussianNB()}
+         \PY{l+s+sd}{clf.fit(features\PYZus{}train\PYZus{}scaled, labels\PYZus{}train)}
+         \PY{l+s+sd}{pred = clf.predict(features\PYZus{}test\PYZus{}scaled)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels\PYZus{}test)}
+         \PY{l+s+sd}{print \PYZdq{}\PYZbs{}nGaussianNB Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} }
+         \PY{l+s+sd}{from sklearn.svm import LinearSVC}
+         \PY{l+s+sd}{clf = LinearSVC()}
+         \PY{l+s+sd}{clf.fit(features\PYZus{}train\PYZus{}scaled, labels\PYZus{}train)}
+         \PY{l+s+sd}{pred = clf.predict(features\PYZus{}test\PYZus{}scaled)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels\PYZus{}test)}
+         \PY{l+s+sd}{print \PYZdq{}\PYZbs{}nLinearSVC Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} }
+         \PY{l+s+sd}{from sklearn.linear\PYZus{}model import LogisticRegression}
+         \PY{l+s+sd}{clf = LogisticRegression()}
+         \PY{l+s+sd}{clf.fit(features\PYZus{}train, labels\PYZus{}train)}
+         \PY{l+s+sd}{pred = clf.predict(features\PYZus{}test)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels\PYZus{}test)}
+         \PY{l+s+sd}{print \PYZdq{}LogisticRegression Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+         
+         
+         
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{} }
+         \PY{l+s+sd}{from sklearn.model\PYZus{}selection import StratifiedShuffleSplit}
+         \PY{l+s+sd}{cv = StratifiedShuffleSplit(n\PYZus{}splits=3, test\PYZus{}size=0.2, random\PYZus{}state=42)}
+         \PY{l+s+sd}{import numpy as np}
+         \PY{l+s+sd}{from sklearn.model\PYZus{}selection import GridSearchCV}
+         \PY{l+s+sd}{from sklearn.tree import DecisionTreeClassifier}
+         \PY{l+s+sd}{param\PYZus{}grid = \PYZob{}\PYZsq{}criterion\PYZsq{}: (\PYZsq{}gini\PYZsq{}, \PYZsq{}entropy\PYZsq{}), \PYZsq{}splitter\PYZsq{}:}
+         \PY{l+s+sd}{              (\PYZsq{}best\PYZsq{}, \PYZsq{}random\PYZsq{}),\PYZsq{}min\PYZus{}samples\PYZus{}split\PYZsq{}: np.arange(2, 10)\PYZcb{}}
+         \PY{l+s+sd}{clf = GridSearchCV(DecisionTreeClassifier(), param\PYZus{}grid)}
+         \PY{l+s+sd}{clf.fit(features\PYZus{}train, labels\PYZus{}train)}
+         \PY{l+s+sd}{pred = clf.predict(features\PYZus{}test)}
+         \PY{l+s+sd}{acc = accuracy\PYZus{}score(pred, labels\PYZus{}test)}
+         \PY{l+s+sd}{print \PYZdq{}\PYZbs{}nDecisionTreeClassifier Accuracy:\PYZdq{}, round(acc,3)}
+         \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}} 
+         
+         
+         
+         \PY{c+c1}{\PYZsh{} O AdaBoost foi o melhor classificador}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.ensemble} \PY{k+kn}{import} \PY{n}{AdaBoostClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn.model\PYZus{}selection} \PY{k+kn}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{AdaBoostClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{features\PYZus{}train}\PY{p}{,} \PY{n}{labels\PYZus{}train}\PY{p}{)}
+         \PY{n}{pred} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{features\PYZus{}test}\PY{p}{)}
+         \PY{n}{acc} \PY{o}{=} \PY{n}{accuracy\PYZus{}score}\PY{p}{(}\PY{n}{pred}\PY{p}{,} \PY{n}{labels\PYZus{}test}\PY{p}{)}
+         \PY{k}{print} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{AdaBoost Accuracy:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n+nb}{round}\PY{p}{(}\PY{n}{acc}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}
+          
+         
+         
+         
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Task 6: Dump your classifier, dataset, and features\PYZus{}list so anyone can}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} check your results. You do not need to change anything below, but make sure}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} that the version of poi\PYZus{}id.py that you submit can be run on its own and}
+         \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} generates the necessary .pkl files for validating your results.}
+         
+         \PY{n}{dump\PYZus{}classifier\PYZus{}and\PYZus{}data}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{my\PYZus{}dataset}\PY{p}{,} \PY{n}{features\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Quantidade de registros: 146
+Quantidade de POIs: 18
+Quantidade de Não-POI: 128
+Quantidade total de atributos: 21
+
+identificação de NaN{\ldots}
+
+Atributo -- Quantidade -- Percentual do Total
+poi  --  0  --  0.0
+salary  --  51  --  34.9
+deferral\_payments  --  107  --  73.3
+total\_payments  --  21  --  14.4
+loan\_advances  --  142  --  97.3
+bonus  --  64  --  43.8
+restricted\_stock\_deferred  --  128  --  87.7
+deferred\_income  --  97  --  66.4
+total\_stock\_value  --  20  --  13.7
+expenses  --  51  --  34.9
+exercised\_stock\_options  --  44  --  30.1
+other  --  53  --  36.3
+long\_term\_incentive  --  80  --  54.8
+restricted\_stock  --  36  --  24.7
+director\_fees  --  129  --  88.4
+to\_messages  --  60  --  41.1
+email\_address  --  35  --  24.0
+from\_poi\_to\_this\_person  --  60  --  41.1
+from\_messages  --  60  --  41.1
+from\_this\_person\_to\_poi  --  60  --  41.1
+shared\_receipt\_with\_poi  --  60  --  41.1
+
+
+Quantidade de outliers: 3
+
+Quantidade de registros após remoção de outliers: 143
+
+
+Quantidade total de atributos com novos atributos: 23
+
+Quantiade de atributos para análise: 18
+
+Número ótimo de atributos : 4
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_0_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Composição dos atributos após KBest: (143, 4)
+
+Atributos em ordem de importância:
+exercised\_stock\_options 24.82
+total\_stock\_value 24.18
+bonus 20.79
+salary 18.29
+
+
+
+AdaBoost Accuracy: 0.837
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+ch}{\PYZsh{}!python tester.py}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/maxfc/Anaconda/anaconda2/lib/python2.7/site-packages/sklearn/cross\_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model\_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+AdaBoostClassifier(algorithm='SAMME.R', base\_estimator=None,
+          learning\_rate=1.0, n\_estimators=50, random\_state=None)
+	Accuracy: 0.84087	Precision: 0.37899	Recall: 0.30300	F1: 0.33676	F2: 0.31566
+	Total predictions: 15000	True positives:  606	False positives:  993	False negatives: 1394	True negatives: 12007
+
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
